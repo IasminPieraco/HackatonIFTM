@@ -25,7 +25,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.ExitToApp
@@ -62,6 +61,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -194,7 +194,7 @@ fun ToppBarVacina(drawerState: DrawerState, scope: CoroutineScope) {
                     )
                 }
                 Text(
-                    text = "Vacina",
+                    text = "Meus testes",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.weight(1f),
                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
@@ -210,7 +210,7 @@ fun ToppBarVacina(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color(0xFF3D7C17),
+            containerColor = Color(0xFF0288d1),
             titleContentColor = Color.White,
             navigationIconContentColor = Color.White,
             actionIconContentColor = Color.White
@@ -218,17 +218,18 @@ fun ToppBarVacina(drawerState: DrawerState, scope: CoroutineScope) {
     )
 }
 
+
 @Composable
 fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
     val contexto = LocalContext.current
     ModalDrawerSheet(
         modifier = Modifier
             .fillMaxWidth(0.75f)
-            .background(Color(0xFF3D7C17))
+            .background(Color(0xFF0288d1))
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF3D7C17))
+                .background(Color(0xFF0288d1))
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
@@ -252,10 +253,10 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.logo),
+                    painter = painterResource(R.drawable.eduboot_logo),
                     contentDescription = "Logo",
                     tint = Color.Black,
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier.size(250.dp).scale(0.8f)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -265,41 +266,30 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable {  contexto.startActivity(Intent(contexto, Tela_Principal::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Tela_Principal::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Início",
+                    contentDescription = "Meus Testes",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Início", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Testes", color = Color.Black, fontSize = 25.sp)
             }
-            //Vacinas
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable {  contexto.startActivity(Intent(contexto, Mostrar_Vacina::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Vaccines,
-                    contentDescription = "Vacinas",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Vacinas", color = Color.Black, fontSize = 25.sp)
-            }
-            //Eventos
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable {  contexto.startActivity(Intent(contexto, Mostrar_Evento::class.java)) }
+                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Evento::class.java)) }
             ) {
                 Icon(
                     imageVector = Icons.Default.Event,
@@ -308,7 +298,7 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Eventos", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Funcionarios", color = Color.Black, fontSize = 25.sp)
             }
             //Doenças
             Row(
@@ -316,34 +306,18 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable {  contexto.startActivity(Intent(contexto, Mostrar_Doenca::class.java)) }
+                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Doenca::class.java)) }
             ) {
                 Icon(
                     imageVector = Icons.Default.HealthAndSafety,
-                    contentDescription = "Doenças",
+                    contentDescription = "Treinar",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Doenças", color = Color.Black, fontSize = 25.sp)
+                Text("Treinar", color = Color.Black, fontSize = 25.sp)
             }
-            //Conta
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable {  contexto.startActivity(Intent(contexto, Tela_Conta::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Conta",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Conta", color = Color.Black, fontSize = 25.sp)
-            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -359,6 +333,7 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 )
                 IconButton(onClick = {
                     contexto.startActivity(Intent(contexto, MainActivity::class.java))
+
                 }) {
                     Icon(
                         imageVector = Icons.Default.ExitToApp,
@@ -371,7 +346,6 @@ fun NavigationVacina(drawerState: DrawerState, scope: CoroutineScope) {
         }
     }
 }
-
 
 
 

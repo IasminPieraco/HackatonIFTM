@@ -18,15 +18,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.HealthAndSafety
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Vaccines
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -52,8 +52,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -68,6 +68,7 @@ import com.example.iniciao_cientfica.classes.Doenca_Animal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class Mostrar_Doenca : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,12 +115,7 @@ fun MainScreenDoenca() {
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.terra),
-                        contentDescription = "Imagem de fundo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
+
                     ConteudoMostraDoenca(innerPadding)
                 }
             }
@@ -155,7 +151,7 @@ fun TopBarMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
         actions = {
             Spacer(modifier = Modifier.width(150.dp))
             Text(
-                text = "Doença",
+                text = "Funcionarios",
                 textAlign = TextAlign.Center,
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 25.sp)
             )
@@ -176,7 +172,7 @@ fun TopBarMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color(0xFF3D7C17),
+            containerColor = Color(0xFF0288d1),
             titleContentColor = Color.White,
             navigationIconContentColor = Color.White,
             actionIconContentColor = Color.White
@@ -190,11 +186,11 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
     ModalDrawerSheet(
         modifier = Modifier
             .fillMaxWidth(0.75f)
-            .background(Color(0xFF3D7C17))
+            .background(Color(0xFF0288d1))
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF3D7C17))
+                .background(Color(0xFF0288d1))
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
@@ -218,10 +214,12 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.logo),
+                    painter = painterResource(R.drawable.eduboot_logo),
                     contentDescription = "Logo",
                     tint = Color.Black,
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier
+                        .size(250.dp)
+                        .scale(0.8f)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -242,37 +240,26 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Início",
+                    contentDescription = "Meus Testes",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Início", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Testes", color = Color.Black, fontSize = 25.sp)
             }
-            //Vacinas
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Vacina::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Vaccines,
-                    contentDescription = "Vacinas",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Vacinas", color = Color.Black, fontSize = 25.sp)
-            }
-            //Eventos
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Evento::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Doenca::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.Event,
@@ -281,7 +268,7 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Eventos", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Funcionarios", color = Color.Black, fontSize = 25.sp)
             }
             //Doenças
             Row(
@@ -289,34 +276,25 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Doenca::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Evento::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.HealthAndSafety,
-                    contentDescription = "Doenças",
+                    contentDescription = "Treinar",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Doenças", color = Color.Black, fontSize = 25.sp)
+                Text("Treinar", color = Color.Black, fontSize = 25.sp)
             }
-            //Conta
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Conta::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Conta",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Conta", color = Color.Black, fontSize = 25.sp)
-            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -331,6 +309,7 @@ fun NavigationMostraDoenca(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(onClick = {
+                    contexto.startActivity(Intent(contexto, MainActivity::class.java))
 
                 }) {
                     Icon(
@@ -362,8 +341,11 @@ fun ConteudoMostraDoenca(innerPadding: PaddingValues) {
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-        allDoencaAnimalInfo.forEach { doencaAnimal ->
-            CartaoMostraDoenca(doencaAnimal)
+        Image(painter = painterResource(id = R.drawable.graficos), contentDescription ="Graficos" )
+        LazyColumn {
+            item {
+                ListaDeFuncionarios()
+            }
         }
     }
 }
@@ -419,5 +401,57 @@ fun CartaoMostraDoenca( doencaAnimal: Doenca_Animal) {
 fun DefaultPreviewMostraDoenca() {
     MyAppMostraDoenca {
         MainScreenDoenca()
+    }
+}
+data class Funcionario(
+    val nome: String,
+    val idade: Int,
+    val cargo: String
+)
+
+// Função que gera 5 funcionários aleatórios
+fun gerarFuncionariosAleatorios(): List<Funcionario> {
+    val nomes = listOf("Ana", "Carlos", "Beatriz", "Fernando", "Julia", "Pedro", "Lucas", "Mariana")
+    val cargos = listOf("Enfermeiro","Instrumentador"  , "Medico	", "Cirurgião"	, "Cirurgião geral" , "Neuro cirurgião")
+
+    return List(5) {
+        Funcionario(
+            nome = nomes.random(),
+            idade = Random.nextInt(18, 65),
+            cargo = cargos.random()
+        )
+    }
+}
+
+@Composable
+fun FuncionarioCard(funcionario: Funcionario) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(text = "Nome: ${funcionario.nome}", style = MaterialTheme.typography.titleMedium)
+            Text(text = "Idade: ${funcionario.idade}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Cargo: ${funcionario.cargo}", style = MaterialTheme.typography.bodyMedium)
+        }
+    }
+}
+
+@Composable
+fun ListaDeFuncionarios() {
+    // Gerando 5 funcionários aleatórios
+    val funcionarios = remember { gerarFuncionariosAleatorios() }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        funcionarios.forEach { funcionario ->
+            FuncionarioCard(funcionario = funcionario)
+        }
     }
 }

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Visibility
@@ -81,7 +82,7 @@ fun Cadastro() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFE2D9CF))
+            .background(Color(0xFFBBA6A6))
             .padding(16.dp)
     ) {
         Column(
@@ -90,7 +91,7 @@ fun Cadastro() {
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo),
+                painter = painterResource(id = R.drawable.eduboot_logo),
                 contentDescription = "Logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -108,21 +109,17 @@ fun Cadastro() {
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .onFocusChanged { focusState ->
-                        nomeIconColor.value = if (focusState.isFocused) Color(0xFFAE6627) else Color.Gray
+                        nomeIconColor.value = if (focusState.isFocused) Color(0xFF2463b3) else Color.Black
                     },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color(0xFFAE6627),
-                    unfocusedBorderColor = Color.Gray,
-                    focusedLabelColor = Color(0xFFAE6627),
-                    unfocusedLabelColor = Color.Gray,
+                    focusedBorderColor = Color(0xFF2463b3),
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color(0xFF2463b3),
+                    unfocusedLabelColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 leadingIcon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.fazendeiro),
-                        contentDescription = "Registrar o usuário",
-                        colorFilter = ColorFilter.tint(nomeIconColor.value)
-                    )
+                    Icon(Icons.Default.AccountCircle, contentDescription ="" , tint = Color.Black)
                 },
                 singleLine = true
             )
@@ -138,13 +135,13 @@ fun Cadastro() {
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .onFocusChanged { focusState ->
-                        emailIconColor.value = if (focusState.isFocused) Color(0xFFAE6627) else Color.Gray
+                        emailIconColor.value = if (focusState.isFocused) Color(0xFF2463b3) else Color.Black
                     },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color(0xFFAE6627),
-                    unfocusedBorderColor = Color.Gray,
-                    focusedLabelColor = Color(0xFFAE6627),
-                    unfocusedLabelColor = Color.Gray,
+                    focusedBorderColor = Color(0xFF2463b3),
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color(0xFF2463b3),
+                    unfocusedLabelColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 leadingIcon = {
@@ -168,13 +165,13 @@ fun Cadastro() {
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .onFocusChanged { focusState ->
-                        senhaIconColor.value = if (focusState.isFocused) Color(0xFFAE6627) else Color.Gray
+                        senhaIconColor.value = if (focusState.isFocused) Color(0xFF2463b3) else Color.Black
                     },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color(0xFFAE6627),
-                    unfocusedBorderColor = Color.Gray,
-                    focusedLabelColor = Color(0xFFAE6627),
-                    unfocusedLabelColor = Color.Gray,
+                    focusedBorderColor = Color(0xFF2463b3),
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color(0xFF2463b3),
+                    unfocusedLabelColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 leadingIcon = {
@@ -214,13 +211,13 @@ fun Cadastro() {
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .onFocusChanged { focusState ->
-                        telefoneIconColor.value = if (focusState.isFocused) Color(0xFFAE6627) else Color.Gray
+                        telefoneIconColor.value = if (focusState.isFocused) Color(0xFF2463b3) else Color.Black
                     },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color(0xFFAE6627),
-                    unfocusedBorderColor = Color.Gray,
-                    focusedLabelColor = Color(0xFFAE6627),
-                    unfocusedLabelColor = Color.Gray,
+                    focusedBorderColor = Color(0xFF2463b3),
+                    unfocusedBorderColor = Color.Black,
+                    focusedLabelColor = Color(0xFF2463b3),
+                    unfocusedLabelColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 leadingIcon = {
@@ -243,7 +240,7 @@ fun Cadastro() {
                     .padding(horizontal = 16.dp)
                     .height(50.dp)
                     .clip(RoundedCornerShape(12.dp)),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAE6627))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0288d1))
             ) {
                 Text(text = "Cadastrar", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
@@ -256,7 +253,7 @@ fun Cadastro() {
                     contexto.startActivity(Intent(contexto, MainActivity::class.java))
                 },
                 fontSize = 14.sp,
-                color = Color(0xFF14870c)
+                color = Color(0xFF2463b3)
             )
         }
     }

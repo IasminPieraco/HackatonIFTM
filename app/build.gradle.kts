@@ -68,10 +68,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation("io.coil-kt:coil-gif:2.1.0")
+
 
     implementation ("androidx.compose.material3:material3:1.0.0")
     implementation ("androidx.compose.material:material-icons-extended:1.3.1")
     implementation ("androidx.compose.material:material:1.4.3")
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
-    implementation("com.google.firebase:firebase-database")
 }

@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.HealthAndSafety
@@ -53,7 +52,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -112,14 +110,9 @@ fun MainScreenMostraVacina() {
             },
             content = { innerPadding ->
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().background(Color(0xFFBBA6A6))
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.terra),
-                        contentDescription = "Imagem de fundo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
+
                     ConteudoMostraVacina(innerPadding)
                 }
             }
@@ -153,9 +146,9 @@ fun TopBarMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         actions = {
-            Spacer(modifier = Modifier.width(150.dp))
+            Spacer(modifier = Modifier.width(110.dp))
             Text(
-                text = "Vacina",
+                text = "Meus testes" ,
                 textAlign = TextAlign.Center,
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 25.sp)
             )
@@ -176,7 +169,7 @@ fun TopBarMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color(0xFF3D7C17),
+            containerColor = Color(0xFF0288d1),
             titleContentColor = Color.White,
             navigationIconContentColor = Color.White,
             actionIconContentColor = Color.White
@@ -184,17 +177,18 @@ fun TopBarMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
     )
 }
 
+
 @Composable
 fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
     val contexto = LocalContext.current
     ModalDrawerSheet(
         modifier = Modifier
             .fillMaxWidth(0.75f)
-            .background(Color(0xFF3D7C17))
+            .background(Color(0xFF0288d1))
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF3D7C17))
+                .background(Color(0xFF0288d1))
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
@@ -218,7 +212,7 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.logo),
+                    painter = painterResource(R.drawable.eduboot_logo),
                     contentDescription = "Logo",
                     tint = Color.Black,
                     modifier = Modifier.size(250.dp)
@@ -259,12 +253,12 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Vaccines,
-                    contentDescription = "Vacinas",
+                    contentDescription = "Meus testes",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Vacinas", color = Color.Black, fontSize = 25.sp)
+                Text("Meus testes", color = Color.Black, fontSize = 25.sp)
             }
             //Eventos
             Row(
@@ -281,7 +275,7 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Eventos", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Funcionarios", color = Color.Black, fontSize = 25.sp)
             }
             //Doenças
             Row(
@@ -293,30 +287,14 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
             ) {
                 Icon(
                     imageVector = Icons.Default.HealthAndSafety,
-                    contentDescription = "Doenças",
+                    contentDescription = "Treinar",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Doenças", color = Color.Black, fontSize = 25.sp)
+                Text("Treinar", color = Color.Black, fontSize = 25.sp)
             }
-            //Conta
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Conta::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Conta",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Conta", color = Color.Black, fontSize = 25.sp)
-            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -332,6 +310,7 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
                 )
                 IconButton(onClick = {
                     contexto.startActivity(Intent(contexto, MainActivity::class.java))
+
                 }) {
                     Icon(
                         imageVector = Icons.Default.ExitToApp,
@@ -344,7 +323,6 @@ fun NavigationMostraVacina(drawerState: DrawerState, scope: CoroutineScope) {
         }
     }
 }
-
 
 @Composable
 fun ConteudoMostraVacina(innerPadding: PaddingValues) {

@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,10 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Event
@@ -32,7 +28,6 @@ import androidx.compose.material.icons.filled.HealthAndSafety
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Vaccines
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -61,14 +56,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iniciao_cientfica.R
@@ -81,13 +75,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.random.Random
+
 
 class Tela_Principal : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val healthcareTopics = intent.getStringArrayListExtra("Lista")
             MyApp {
-                MainScreen()
+                MainScreen(healthcareTopics)
             }
         }
     }
@@ -109,7 +106,7 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(healthcareTopics: ArrayList<String>?) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -125,15 +122,11 @@ fun MainScreen() {
             },
             content = { innerPadding ->
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(0xFFBBA6A6))
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.terra),
-                        contentDescription = "Imagem de fundo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    ConteudoPrincipal(innerPadding)
+                    ConteudoPrincipal(innerPadding,healthcareTopics)
                 }
             }
         )
@@ -148,7 +141,7 @@ fun TopBar(drawerState: DrawerState, scope: CoroutineScope) {
     TopAppBar(
         title = {
             Text(
-                text = "Menu",
+                text = "Meus Testes",
                 textAlign = TextAlign.Center,
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
             )
@@ -199,7 +192,7 @@ fun TopBar(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color(0xFF3D7C17),
+            containerColor = Color(0xFF0288d1),
             titleContentColor = Color.White,
             navigationIconContentColor = Color.White,
             actionIconContentColor = Color.White
@@ -214,11 +207,11 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
     ModalDrawerSheet(
         modifier = Modifier
             .fillMaxWidth(0.75f)
-            .background(Color(0xFF3D7C17))
+            .background(Color(0xFF0288d1))
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF3D7C17))
+                .background(Color(0xFF0288d1))
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
@@ -242,10 +235,12 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.logo),
+                    painter = painterResource(R.drawable.eduboot_logo),
                     contentDescription = "Logo",
                     tint = Color.Black,
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier
+                        .size(250.dp)
+                        .scale(0.8f)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -266,37 +261,26 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Início",
+                    contentDescription = "Meus Testes",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Início", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Testes", color = Color.Black, fontSize = 25.sp)
             }
-            //Vacinas
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Vacina::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Vaccines,
-                    contentDescription = "Vacinas",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Vacinas", color = Color.Black, fontSize = 25.sp)
-            }
-            //Eventos
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Evento::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Doenca::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.Event,
@@ -305,7 +289,7 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Eventos", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Funcionarios", color = Color.Black, fontSize = 25.sp)
             }
             //Doenças
             Row(
@@ -313,34 +297,25 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Doenca::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Evento::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.HealthAndSafety,
-                    contentDescription = "Doenças",
+                    contentDescription = "Treinar",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Doenças", color = Color.Black, fontSize = 25.sp)
+                Text("Treinar", color = Color.Black, fontSize = 25.sp)
             }
-            //Conta
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Conta::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Conta",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Conta", color = Color.Black, fontSize = 25.sp)
-            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -372,25 +347,25 @@ fun NavigationPrincipal(drawerState: DrawerState, scope: CoroutineScope) {
 
 
 @Composable
-fun ConteudoPrincipal(innerPadding: PaddingValues) {
+fun ConteudoPrincipal(innerPadding: PaddingValues, healthcareTopics: ArrayList<String>?) {
     var allAnimalInfo by remember { mutableStateOf(emptyList<Animal>()) }
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit) {
-        scope.launch {
-            val db = BancoDados()
-            val animal = db.Mostrar_Animal()
-            allAnimalInfo = animal
-        }
-    }
+    
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-        items(allAnimalInfo) { animal ->
-            CartaoAnimal(animal)
+        item{
+            if (healthcareTopics != null) {
+                healthcareTopics.forEach{
+                    if(it.trim().length > 0)
+                    CartaoAnimal(it)
+                }
+            }
+            
         }
     }
 }
@@ -489,7 +464,7 @@ fun ExibirDialogo(opcoes: Int, animal: Animal, onDismiss: () -> Unit) {
 }
 
 @Composable
-fun CartaoAnimal(animal: Animal) {
+fun CartaoAnimal(animal: String) {
     val isExpanded = remember { mutableStateOf(false) }
     val showDialog = remember { mutableStateOf(false) }
     val showDeleteDialog = remember { mutableStateOf(false) }
@@ -509,21 +484,15 @@ fun CartaoAnimal(animal: Animal) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo),
+                    painter = painterResource(id = R.drawable.eduboot_logo),
                     contentDescription = "Imagem do Animal",
                     modifier = Modifier.size(if (isExpanded.value) 100.dp else 65.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(text = "ID: ${animal.id_animal}", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                    Text(text = "Raça: ${animal.raca}", color = Color(0xFFB66200))
+                    Text(text = animal, color = Color(0xFFB66200))
                 }
-                IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
-                    Icon(
-                        painter = if (isExpanded.value) painterResource(id = R.drawable.sobe) else painterResource(id = R.drawable.desce),
-                        contentDescription = if (isExpanded.value) "Recolher" else "Expandir"
-                    )
-                }
+                Text(text = Random.nextInt(0, 101).toString()+"%")
                 IconButton(onClick = { showDeleteDialog.value = true }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
@@ -533,66 +502,10 @@ fun CartaoAnimal(animal: Animal) {
                     )
                 }
             }
-            if (isExpanded.value) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Column {
-                    Text(text = "Sexo: ${animal.sexo}", color = Color(0xFFD32F2F))
-                    Text(text = "Nascimento: ${animal.data_nascimento}", color = Color.Black)
-                    Text(text = "Peso: ${animal.peso}", color = Color(0xFF2E7D32))
-                    Text(text = "Pastagem: ${animal.pastagem}", color = Color.Black)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Divider(color = Color.Gray, thickness = 1.dp)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        IconButton(onClick = {
-                            opcoes.value = 1
-                            showDialog.value = true
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.doenca),
-                                contentDescription = "Coração",
-                                tint = Color.Black,
-                                modifier = Modifier.size(48.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(60.dp))
-                        IconButton(onClick = {
-                            opcoes.value = 2
-                            showDialog.value = true
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.vacina),
-                                contentDescription = "Injeção",
-                                tint = Color.Black,
-                                modifier = Modifier.size(48.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(60.dp))
-                        IconButton(onClick = {
-                            opcoes.value = 3
-                            showDialog.value = true
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.calendario),
-                                contentDescription = "Calendário",
-                                tint = Color.Black,
-                                modifier = Modifier.size(35.dp)
-                            )
-                        }
-                    }
-                }
-            }
+            
         }
     }
 
-    if (showDialog.value) {
-        ExibirDialogo(opcoes.value, animal) {
-            showDialog.value = false
-        }
-    }
 
     if (showDeleteDialog.value) {
         AlertDialog(
@@ -602,7 +515,6 @@ fun CartaoAnimal(animal: Animal) {
             confirmButton = {
                 TextButton(onClick = {
                     coroutineScope.launch {
-                        db.Excluir_Animal(animal)
                         showDeleteDialog.value = false
                     }
                 }) {
@@ -619,10 +531,4 @@ fun CartaoAnimal(animal: Animal) {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyApp {
-        MainScreen()
-    }
-}
+

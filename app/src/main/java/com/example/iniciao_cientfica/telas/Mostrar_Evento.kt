@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,56 +19,71 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.HealthAndSafety
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Vaccines
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.iniciao_cientfica.AI.IA
 import com.example.iniciao_cientfica.R
-import com.example.iniciao_cientfica.banco.BancoDados
-import com.example.iniciao_cientfica.classes.Evento
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class Mostrar_Evento : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,15 +128,13 @@ fun MainScreenMostraEvento() {
             },
             content = { innerPadding ->
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(0xFFBBA6A6))
+                        .padding(innerPadding)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.terra),
-                        contentDescription = "Imagem de fundo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    ConteudoMostraEvento(innerPadding)
+                    // Chamada ao formulário atualizado com Sliders
+                    Formulario()
                 }
             }
         )
@@ -155,7 +169,7 @@ fun TopBarMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
         actions = {
             Spacer(modifier = Modifier.width(150.dp))
             Text(
-                text = "Evento",
+                text = "Treinamento",
                 textAlign = TextAlign.Center,
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 25.sp)
             )
@@ -176,7 +190,7 @@ fun TopBarMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color(0xFF3D7C17),
+            containerColor = Color(0xFF0288d1),
             titleContentColor = Color.White,
             navigationIconContentColor = Color.White,
             actionIconContentColor = Color.White
@@ -190,11 +204,11 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
     ModalDrawerSheet(
         modifier = Modifier
             .fillMaxWidth(0.75f)
-            .background(Color(0xFF3D7C17))
+            .background(Color(0xFF0288d1))
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF3D7C17))
+                .background(Color(0xFF0288d1))
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
@@ -218,10 +232,12 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.logo),
+                    painter = painterResource(R.drawable.eduboot_logo),
                     contentDescription = "Logo",
                     tint = Color.Black,
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier
+                        .size(250.dp)
+                        .scale(0.8f)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -242,37 +258,26 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Início",
+                    contentDescription = "Meus Testes",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Início", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Testes", color = Color.Black, fontSize = 25.sp)
             }
-            //Vacinas
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Vacina::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Vaccines,
-                    contentDescription = "Vacinas",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Vacinas", color = Color.Black, fontSize = 25.sp)
-            }
-            //Eventos
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Evento::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Doenca::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.Event,
@@ -281,7 +286,7 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Eventos", color = Color.Black, fontSize = 25.sp)
+                Text("Meus Funcionarios", color = Color.Black, fontSize = 25.sp)
             }
             //Doenças
             Row(
@@ -289,34 +294,25 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Mostrar_Doenca::class.java)) }
+                    .clickable {
+                        contexto.startActivity(
+                            Intent(
+                                contexto,
+                                Mostrar_Evento::class.java
+                            )
+                        )
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Default.HealthAndSafety,
-                    contentDescription = "Doenças",
+                    contentDescription = "Treinar",
                     tint = Color.Black,
                     modifier = Modifier.size(25.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Text("Doenças", color = Color.Black, fontSize = 25.sp)
+                Text("Treinar", color = Color.Black, fontSize = 25.sp)
             }
-            //Conta
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 25.dp)
-                    .clickable { contexto.startActivity(Intent(contexto, Tela_Conta::class.java)) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Conta",
-                    tint = Color.Black,
-                    modifier = Modifier.size(25.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text("Conta", color = Color.Black, fontSize = 25.sp)
-            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -332,6 +328,7 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
                 )
                 IconButton(onClick = {
                     contexto.startActivity(Intent(contexto, MainActivity::class.java))
+
                 }) {
                     Icon(
                         imageVector = Icons.Default.ExitToApp,
@@ -344,77 +341,385 @@ fun NavigationMostraEvento(drawerState: DrawerState, scope: CoroutineScope) {
         }
     }
 }
+@Composable
+fun Formulario() {
+    var selectedCargo by remember { mutableStateOf("") }
+    var selectedCargoDesejado by remember { mutableStateOf("") }
+    var horas by remember { mutableStateOf("") }
+    var cargo by remember {
+        mutableStateOf(TextFieldValue(""))
+    }
+    var cargosDesejado by remember {
+        mutableStateOf(TextFieldValue(""))
+    }
+    val context = LocalContext.current
 
+    val cargos = listOf("Residente"	, "Enfermeiro","Instrumentador"  ,
+            "Medico	",
+            "Cirurgião"	,
+            "Cirurgião geral" ,
+            "Neuro cirurgião")
+    val cargosDesejados = listOf( "Enfermeiro","Instrumentador"  ,
+    "Medico	",
+    "Cirurgião"	,
+    "Cirurgião geral" ,
+    "Neuro cirurgião")
+    val habilidades = listOf(
+        "Cuidados Intensivos",
+        "Gestão e Liderança em Saúde",
+        "Terapia Intensiva",
+        "Tecnologia e Inovação em Saúde",
+        "Qualidade e Segurança do Paciente",
+        "Cuidados Paliativos",
+        "Tratamentos Avançados",
+        "Tratamentos Especializados",
+        "Saúde Mental",
+        "Saúde Psicológica",
+        "Farmácia",
+        "Terapia Farmacológica",
+        "Nutrição Clínica",
+        "Nutrição Hospitalar"
+    )
+
+    val sliderValues = remember { mutableStateMapOf<String, Float>().apply {
+        habilidades.forEach { this[it] = 0f }
+    }}
+    val perguntas = listOf(
+        "O funcionário já possui experiência prévia na função?",
+        " O funcionário entende bem as responsabilidades do seu cargo atual?",
+    "O funcionário tem conhecimento básico sobre as ferramentas utilizadas no trabalho?",
+
+   " O funcionário tem dificuldades para utilizar os sistemas internos da empresa?",
+
+    "O funcionário já recebeu treinamentos sobre segurança no trabalho?",
+
+    "O funcionário tem interesse em aprender novas habilidades técnicas?",
+
+    "O funcionário sabe como lidar com situações de conflito no ambiente de trabalho?",
+
+    "O funcionário está familiarizado com as políticas da empresa sobre ética e conduta?",
+
+    "O funcionário sente que seu desempenho poderia melhorar com mais treinamentos?",
+
+    "O funcionário já participou de treinamentos de liderança ou gestão de equipes?",
+
+    "O funcionário tem dificuldades para realizar tarefas relacionadas a tecnologia?",
+
+    "O funcionário se sente confortável ao trabalhar em equipe?",
+
+    "O funcionário tem interesse em aprender sobre metodologias ágeis?",
+
+    "O funcionário já recebeu treinamentos sobre diversidade e inclusão?",
+
+    "O funcionário sabe como identificar e resolver problemas de maneira autônoma?",
+
+    "O funcionário demonstra interesse em desenvolvimento contínuo e aprendizado?",
+
+    "O funcionário conhece as práticas de segurança digital da empresa?",
+
+    "O funcionário já participou de treinamentos de atendimento ao cliente?",
+
+    "O funcionário tem dificuldades para se comunicar de forma clara e eficaz?",
+
+    "O funcionário já foi treinado para trabalhar sob pressão?",
+    )
+    val answers = remember { mutableStateListOf<Boolean?>(
+        null, null, null, null,null,null,null,null,null,null,
+        null, null, null, null,null,null,null,null,null,null
+        ) }
+
+
+
+
+    LazyColumn {
+            item {
+                Text("Formulário de Habilidades e Cargo", style = MaterialTheme.typography.titleLarge)
+            }
+
+            // Seleção de Cargo
+            item {
+                StylishSelect(
+                    value = cargo,
+                    options = cargos,
+                    onOptionSelected = {
+                        cargo = TextFieldValue(it)
+                    },
+                    label = "Cargo",
+                    placeholder = "Cargo"
+                )
+            }
+
+            // Seleção de Cargo Desejado
+            item {
+                StylishSelect(
+                    value = cargosDesejado,
+                    options = cargosDesejados,
+                    onOptionSelected = {
+                        cargosDesejado= TextFieldValue(it)
+                    },
+                    label = "Cargo Desejado",
+                    placeholder = "Cargo Desejado"
+                )
+            }
+
+            // Input de Horas
+            item {
+                OutlinedTextField(
+                    value = horas,
+                    onValueChange = { horas = it },
+                    label = { Text("Tempo (0-8 horas)") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+            }
+
+            // Habilidades com Slider centralizado
+            items(habilidades) { habilidade ->
+                SliderField(
+                    habilidade = habilidade,
+                    value = sliderValues[habilidade] ?: 0f,
+                    onValueChange = { sliderValues[habilidade] = it.roundToInt().toFloat() }
+                )
+            }
+        item {
+            perguntas.forEachIndexed { index, pergunta ->
+                QuestionItem(
+                    question = (index +1).toString() +")" +pergunta,
+                    answer = answers[index],
+                    onAnswerSelected = { answer -> answers[index] = answer }
+                )
+            }
+
+        }
+
+
+
+            // Botão de Submit
+            item {
+                Row (Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Absolute.Center){
+                    Button(
+                        onClick = {
+                            IA.initIA(48, 50, 10)
+                            IA.train()
+                            IA.predict()
+                            val lista = IA.lista
+                            val intent = Intent(context,Tela_Principal::class.java)
+                            intent.putStringArrayListExtra("Lista",lista)
+                            context.startActivity(intent)
+
+
+                            // Ações para enviar os dados
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0288d1))
+                    ) {
+                        Text("Enviar")
+                    }
+
+                }
+
+            }
+
+    }
+
+
+}
 
 @Composable
-fun ConteudoMostraEvento(innerPadding: PaddingValues) {
-    var allEventoAnimalInfo by remember { mutableStateOf(emptyList<Evento>()) }
-    LaunchedEffect(Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val db = BancoDados()
-            val mostraEvento = db.Mostrar_Evento()
-            println(mostraEvento)
-            allEventoAnimalInfo = mostraEvento
+fun QuestionItem(
+    question: String,
+    answer: Boolean?,
+    onAnswerSelected: (Boolean) -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = question,
+            fontSize = 18.sp,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            RadioButton(
+                selected = answer == true,
+                onClick = { onAnswerSelected(true) }
+            )
+            Text(text = "Sim")
+            RadioButton(
+                selected = answer == false,
+                onClick = { onAnswerSelected(false) }
+            )
+            Text(text = "Não")
         }
     }
+}
+
+@Composable
+fun DropdownMenuField(label: String, options: List<String>, selectedOption: String, onOptionSelected: (String) -> Unit) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column {
+        OutlinedTextField(
+            value = selectedOption,
+            onValueChange = {},
+            label = { Text(label) },
+            readOnly = true,
+            trailingIcon = {
+                Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = true } // Corrigido para abrir ao clicar
+        )
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            options.forEach { option ->
+                DropdownMenuItem(
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                    },
+                    text = { Text(option) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SliderField(habilidade: String, value: Float, onValueChange: (Float) -> Unit) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally // Centraliza o Slider
     ) {
-        allEventoAnimalInfo.forEach { mostraEvento ->
-            CartaoMostraEvento(mostraEvento)
-        }
+        Text(habilidade, style = MaterialTheme.typography.labelLarge)
+        Text(text = value.toString(), style = MaterialTheme.typography.bodySmall)
+        // Slider com centro em 0 e cores diferentes para positivo/negativo
+        Slider(
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = -10f..10f, // Valor entre -10 e 10
+            steps = 20, // Incremento de 1
+            modifier = Modifier.fillMaxWidth(),
+//            colors = SliderDefaults.colors(
+//                thumbColor = if (value >= 0) Color.Green else Color.Red, // Muda cor dependendo do valor
+ //              activeTrackColor = if (value >= 0) Color.Green else Color.Red, // Barra ativa
+//            )
+            colors = SliderDefaults.colors(thumbColor = Color(0xFF0288d1),activeTrackColor = Color(0xFF0288d1),
+            inactiveTrackColor = Color.Gray)
+
+        )
+
+
+
+        Spacer(modifier = Modifier.height(3.dp))
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartaoMostraEvento( evento: Evento) {
-    val isExpanded = remember { mutableStateOf(false) }
-    val showDialog = remember { mutableStateOf(false) }
-    val dialogContent = remember { mutableStateOf("") }
+fun StylishSelect(
+    value: TextFieldValue,
+    options: List<String>,
+    onOptionSelected: (String) -> Unit,
+    label: String,
+    placeholder: String,
+    enabled: Boolean = true
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
-    Card(
+    val buttonGradient = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF199CAC),
+            Color(0xFF27a0a8),
+            Color(0xFF0288d1),
+        )
+    )
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFEFEFEF))
+            .padding(16.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "Imagem do Animal",
-                    modifier = Modifier.size(if (isExpanded.value) 100.dp else 65.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(text = "ID: ${evento.id_animal}", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                    Text(text = "Nome da Vacina: ${evento.tipo_evento}", color = Color(0xFFB66200))
-                }
-                IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = {},
+            readOnly = true,
+            enabled = enabled,
+            label = { Text(label) },
+            placeholder = { Text(placeholder) },
+            trailingIcon = {
+                if (expanded) {
                     Icon(
-                        painter = if (isExpanded.value) painterResource(id = R.drawable.sobe) else painterResource(id = R.drawable.desce),
-                        contentDescription = if (isExpanded.value) "Recolher" else "Expandir"
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Dropdown Arrow"
                     )
                 }
-            }
-            if (isExpanded.value) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Column {
-                    Text(text = "Data da Aplicação: ${evento.data}", color = Color(0xFFD32F2F))
-                    Text(text = "Data de Vencimento: ${evento.descricao}", color = Color.Black)
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+            },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .onFocusChanged { expanded = it.isFocused },
+            shape = RoundedCornerShape(corner = CornerSize(16.dp)),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                focusedLabelColor = MaterialTheme.colorScheme.secondary,
+                cursorColor = MaterialTheme.colorScheme.primary
+            ),
+        )
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = {
+                expanded = false
+                focusManager.clearFocus()
+
+            },
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .background(buttonGradient)
+        ) {
+            options.forEach { option ->
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = option,
+                            color = Color.White,
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    },
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                        focusManager.clearFocus()
+                    },
+                    contentPadding = PaddingValues(vertical = 16.dp)
+                )
             }
         }
     }
 }
+// Modelo de dados para uma pergunta com respostas Sim ou Não
+data class Pergunta(
+    val texto: String,
+    var value: Boolean
+)
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreviewMostraEvento() {
-    MyAppMostraEvento {
-        MainScreenMostraEvento()
+fun createQuestionStates(keys: List<String>): List<Pergunta> {
+    return remember {
+        keys.map { key ->
+            Pergunta(key, false)
+        }.toList()
     }
 }
+
