@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.iniciao_cientfica.AI.IA
 import com.example.iniciao_cientfica.R
 
 class MainActivity : ComponentActivity() {
@@ -113,7 +114,7 @@ fun Login() {
                     cursorColor = Color.Black
                 ),
                 leadingIcon = {
-                    Icon(painter = Icons.Default.Acc, contentDescription = )
+                    //Icon(painter = Icons.Default.Acc, contentDescription = )
                 },
                 singleLine = true
             )
@@ -175,6 +176,29 @@ fun Login() {
 
             Button(
                 onClick = {
+                    IA.initIA(48,10,4);
+                    IA.train();
+                    IA.predict();
+                    /*val E = arrayListOf<ArrayList<Double>>();
+                    val s = arrayListOf<ArrayList<Double>>();
+                    var aux = arrayListOf<Double>();
+                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 2.5, 3.0,  5.0,   0.0, 0.0,   0.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
+                    E.add(aux);
+                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0 ,0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 9.0,  5.0,   7.0, 8.0,   5.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
+                    E.add(aux);
+                    aux = (doubleArrayOf(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 3.5, -3.0, 0.0,   0.0, 1.0,   -0.8, 1.2, 0.1 ,0.7, -1.2, -0.3 ,0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0 ,1.0, 1.0 ,-1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
+                    E.add(aux);
+                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 2.5, 3.0,  5.0,   0.0, 0.0,   0.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
+                    E.add(aux);
+                    aux = (doubleArrayOf(0.2,0.4,0.6,0.1)).toList() as ArrayList<Double>;
+                    s.add(aux);
+                    aux = (doubleArrayOf(0.8,0.2,0.2,0.4)).toList() as ArrayList<Double>;
+                    s.add(aux);
+                    aux = (doubleArrayOf(0.1,0.7,0.3,0.3)).toList() as ArrayList<Double>;
+                    s.add(aux);
+                    aux = (doubleArrayOf(0.2,0.4,0.6,0.1)).toList() as ArrayList<Double>;
+                    s.add(aux);
+                    val a = IA.treino_nao_supervisionado(0.0001,E,s);*/
                     contexto.startActivity(Intent(contexto, Tela_Principal::class.java))
                 },
                 modifier = Modifier
