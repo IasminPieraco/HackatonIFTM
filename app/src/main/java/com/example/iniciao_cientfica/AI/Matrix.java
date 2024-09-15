@@ -1,5 +1,7 @@
 package com.example.iniciao_cientfica.AI;
 
+import android.util.Log;
+
 import java.util.function.Function;
 
 public class Matrix {
@@ -36,6 +38,7 @@ public class Matrix {
     }
     public static Matrix multiply(Matrix a, Matrix b) {
         Matrix result = new Matrix(a.rows, b.cols);
+
         for (int i = 0; i < result.rows; i++) {
             for (int j = 0; j < result.cols; j++) {
                 double sum = 0;

@@ -176,29 +176,9 @@ fun Login() {
 
             Button(
                 onClick = {
-                    IA.initIA(48,10,4);
+                    IA.initIA(48,50,10);
                     IA.train();
                     IA.predict();
-                    /*val E = arrayListOf<ArrayList<Double>>();
-                    val s = arrayListOf<ArrayList<Double>>();
-                    var aux = arrayListOf<Double>();
-                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 2.5, 3.0,  5.0,   0.0, 0.0,   0.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
-                    E.add(aux);
-                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0 ,0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 9.0,  5.0,   7.0, 8.0,   5.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
-                    E.add(aux);
-                    aux = (doubleArrayOf(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 3.5, -3.0, 0.0,   0.0, 1.0,   -0.8, 1.2, 0.1 ,0.7, -1.2, -0.3 ,0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0 ,1.0, 1.0 ,-1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
-                    E.add(aux);
-                    aux = (doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 2.5, 3.0,  5.0,   0.0, 0.0,   0.4,  1.2, 0.1, 0.7, -1.2, -0.3, 0.1, -0.3, 0.15, 0.6, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, 1.0)).toList() as ArrayList<Double>;
-                    E.add(aux);
-                    aux = (doubleArrayOf(0.2,0.4,0.6,0.1)).toList() as ArrayList<Double>;
-                    s.add(aux);
-                    aux = (doubleArrayOf(0.8,0.2,0.2,0.4)).toList() as ArrayList<Double>;
-                    s.add(aux);
-                    aux = (doubleArrayOf(0.1,0.7,0.3,0.3)).toList() as ArrayList<Double>;
-                    s.add(aux);
-                    aux = (doubleArrayOf(0.2,0.4,0.6,0.1)).toList() as ArrayList<Double>;
-                    s.add(aux);
-                    val a = IA.treino_nao_supervisionado(0.0001,E,s);*/
                     contexto.startActivity(Intent(contexto, Tela_Principal::class.java))
                 },
                 modifier = Modifier

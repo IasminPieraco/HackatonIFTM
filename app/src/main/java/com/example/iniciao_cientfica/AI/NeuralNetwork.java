@@ -1,5 +1,7 @@
 package com.example.iniciao_cientfica.AI;
 
+import android.util.Log;
+
 public class NeuralNetwork {
     private int inputNodes, hiddenNodes, outputNodes;
     private Matrix weights_ih, weights_ho, bias_h, bias_o;
