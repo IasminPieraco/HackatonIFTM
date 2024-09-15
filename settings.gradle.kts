@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Hackaton"
+rootProject.name = "Iniciação_Científica"
 include(":app")
  

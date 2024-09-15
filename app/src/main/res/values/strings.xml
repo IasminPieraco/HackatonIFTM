@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Hackaton</string>
+    <string name="app_name">Iniciação_Científica</string>
+    <string name="title_activity_tela_cadastro">Tela_Cadastro</string>
+    <string name="title_activity_tela_principal">Tela_Principal</string>
+    <string name="title_activity_tela_cadastro_animal">Tela_Cadastro_Animal</string>
+    <string name="title_activity_tela_evento">Tela_Evento</string>
+    <string name="title_activity_tela_vacina">Tela_Vacina</string>
+    <string name="title_activity_tela_doença">Tela_Doença</string>
+    <string name="title_activity_tela_conta">Tela_Conta</string>
+    <string name="title_activity_tela_evento_nascimento">Tela_Evento_Nascimento</string>
+    <string name="title_activity_mostrar_doenca">Mostrar_Doenca</string>
+    <string name="title_activity_mostrar_vacina">Mostrar_Vacina</string>
+    <string name="title_activity_mostrar_evento">Mostrar_Evento</string>
 </resources>

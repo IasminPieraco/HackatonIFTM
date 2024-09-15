@@ -1,4 +1,4 @@
-package com.example.hackaton.ui.theme
+package com.example.iniciao_cientfica.telas.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

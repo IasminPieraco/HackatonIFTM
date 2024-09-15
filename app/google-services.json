@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "245922235742",
+    "firebase_url": "https://iniciacao-cientifica-83204-default-rtdb.firebaseio.com",
+    "project_id": "iniciacao-cientifica-83204",
+    "storage_bucket": "iniciacao-cientifica-83204.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245922235742:android:8afc8bfe24c196d952bbcf",
+        "android_client_info": {
+          "package_name": "com.example.ic_jatpack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245922235742-ujfs5bpeu17idf1rnqjh4teujuv0r8sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOsLKKv-CJhtOMK-xkTLi1xEz_8qEl5rY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245922235742-ujfs5bpeu17idf1rnqjh4teujuv0r8sc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245922235742:android:e33aa806ed4d593852bbcf",
+        "android_client_info": {
+          "package_name": "com.example.iniciao_cientfica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245922235742-ujfs5bpeu17idf1rnqjh4teujuv0r8sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOsLKKv-CJhtOMK-xkTLi1xEz_8qEl5rY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245922235742-ujfs5bpeu17idf1rnqjh4teujuv0r8sc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

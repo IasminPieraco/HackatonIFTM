@@ -6,17 +6,89 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Hackaton"
+        android:theme="@style/Theme.Iniciação_Científica"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".telas.Mostrar_Evento"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_mostrar_evento"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Mostrar_Vacina"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_mostrar_vacina"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Mostrar_Doenca"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_mostrar_doenca"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Evento_Nascimento"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_evento_nascimento"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Conta"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_conta"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Doença"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_doença"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Vacina"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_vacina"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Evento"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_evento"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Cadastro_Animal"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_cadastro_animal"
+            android:theme="@style/Theme.Iniciação_Científica" />
+<!--        <activity-->
+<!--            android:name=".Tela_Cadastro_Animal"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_tela_cadastro_animal"-->
+<!--            android:theme="@style/Theme.Iniciação_Científica" />-->
+        <activity
+            android:name=".telas.Tela_Principal"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_principal"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.Tela_Cadastro"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="@string/title_activity_tela_cadastro"
+            android:theme="@style/Theme.Iniciação_Científica" />
+        <activity
+            android:name=".telas.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Hackaton">
+            android:theme="@style/Theme.Iniciação_Científica">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

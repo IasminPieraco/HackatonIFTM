@@ -1,4 +1,4 @@
-package com.example.hackaton
+package com.example.iniciao_cientfica
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.hackaton.ui.theme
+package com.example.iniciao_cientfica.telas.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun HackatonTheme(
+fun Iniciação_CientíficaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
